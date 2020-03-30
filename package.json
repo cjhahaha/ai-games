@@ -7,11 +7,13 @@
 		"gh-pages": "^2.2.0"
 	},
 	"dependencies": {
+		"@ant-design/icons": "^4.0.5",
 		"antd": "^3.6.5",
 		"react": "^16.4.1",
 		"react-dom": "^16.4.1",
 		"react-router-dom": "^5.1.2",
-		"react-scripts": "1.1.4"
+		"react-scripts": "1.1.4",
+		"style-component": "^0.0.1"
 	},
 	"scripts": {
 		"start": "react-scripts start",
