@@ -1,6 +1,10 @@
 import React from 'react';
 import { Switch } from 'antd';
+import { Wrapper } from '../components/Wrapper';
+import { AI, PLAYER, CANNOT_CLICK, TIE } from "../common/constant";
+
 import './index.css';
+import '../common/common.css';
 
 /* import functions */
 let _ = require('./minimax.js')
@@ -10,29 +14,14 @@ const win_check = _.win_check;
 const ai_move = _.ai_move;
 
 
-/* for chessboard */
-const AI = 1;
-const PLAYER = -1;
-const TIE = 0;
-const CANNOT_CLICK = 0;
 
 /* for responsive layout */
 const HEIGHT = window.innerHeight;
 const WIDTH = window.innerWidth;
 const BASE = HEIGHT < WIDTH ? HEIGHT : WIDTH;
-const GIRD_HEIGHT = BASE / 5;
-const BORDER_SIZE = Math.ceil(window.innerWidth / 40);
-const BORDER_CSS = 'solid #FFF ' + BORDER_SIZE.toString() + 'px';
-const CHESS_SIZE = (BASE / 7).toString() + 'px';
-const FONT_SIZE = (BASE / 15).toString() + 'px';
+const BORDER_CSS = 'solid #FFF 2.5vmin';
 
-const UPPER_HEIGHT = GIRD_HEIGHT + BORDER_SIZE;
-const MIDDLE_HEIGHT = GIRD_HEIGHT + 2 * BORDER_SIZE;
-
-/* for design */
-const COLOR_ROW = ['#606470', '#3c79ce', '#F9CE00', '#4CAF50', '#FF9800'];       // background color
-
-
+/*
 class Index extends React.Component {
     state = {
         chessboard: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],                     // chessboard
@@ -41,11 +30,6 @@ class Index extends React.Component {
         clickStatus: AI,                                                   // 0 -> nobody move, 1 -> ai move, 2 -> human move
         firstHand: AI,                                                     // who plays first
         result: 'Let\'s play!'                                             // help text
-    };
-
-
-    componentWillMount() {
-        this.setState({ colorIdx: Math.round(Math.random() * 432) % 5 });  // get random background color
     };
 
 
@@ -178,65 +162,65 @@ class Index extends React.Component {
 
     render() {                                                             // html
         return (
-            <div className="container" style={{ background: COLOR_ROW[this.state.colorIdx], width: WIDTH, height: HEIGHT }}>
+            <div className="container" style={{ background: getBackgroundColor(), width: WIDTH, height: HEIGHT }}>
                 <div className="chessboard"><table>
-                    <tr className="row" style={{ height: UPPER_HEIGHT}}>
-                        <td className="gird" style={{ height: UPPER_HEIGHT, width: GIRD_HEIGHT,
-                                borderBottom: BORDER_CSS }}
-                                onClick={this.handleClick.bind(this, 0)}>
-                            <div style={{ fontSize: CHESS_SIZE }} className="chess"> {this.state.displayBoard[0]} </div>
+                    <tr className="row" style={{ height: '22.5vmin'}}>
+                        <td className="gird" style={{ height: '22.5vmin', width: '20vmin',
+                            borderBottom: BORDER_CSS }}
+                            onClick={this.handleClick.bind(this, 0)}>
+                            <div style={{ fontSize: '14.7vmin' }} className="chess"> {this.state.displayBoard[0]} </div>
                         </td>
 
-                        <td className="gird" style={{ height: UPPER_HEIGHT, width: MIDDLE_HEIGHT,
-                                borderLeft: BORDER_CSS, borderRight: BORDER_CSS, borderBottom: BORDER_CSS }}
-                                onClick={this.handleClick.bind(this, 1)} >
-                            <div style={{ fontSize: CHESS_SIZE }} className="chess"> {this.state.displayBoard[1]} </div>
+                        <td className="gird" style={{ height: '22.5vmin', width: '25vmin',
+                            borderLeft: BORDER_CSS, borderRight: BORDER_CSS, borderBottom: BORDER_CSS }}
+                            onClick={this.handleClick.bind(this, 1)} >
+                            <div style={{ fontSize: '14.7vmin' }} className="chess"> {this.state.displayBoard[1]} </div>
                         </td>
 
-                        <td className="gird" style={{ height: UPPER_HEIGHT, width: GIRD_HEIGHT,
-                                borderBottom: BORDER_CSS }}
-                                onClick={this.handleClick.bind(this, 2)} >
-                            <div style={{ fontSize: CHESS_SIZE }} className="chess"> {this.state.displayBoard[2]} </div>
-                        </td>
-                    </tr>
-
-
-                    <tr className="row" style={{ height: UPPER_HEIGHT }}>
-                        <td className="gird" style={{ height: UPPER_HEIGHT, width: GIRD_HEIGHT,
-                                borderBottom: BORDER_CSS }}
-                                onClick={this.handleClick.bind(this, 3)}>
-                            <div style={{ fontSize: CHESS_SIZE }} className="chess"> {this.state.displayBoard[3]} </div>
-                        </td>
-
-                        <td className="gird" style={{ height: UPPER_HEIGHT, width: MIDDLE_HEIGHT,
-                                borderLeft: BORDER_CSS, borderRight: BORDER_CSS, borderBottom: BORDER_CSS }}
-                                onClick={this.handleClick.bind(this, 4)} >
-                            <div style={{ fontSize: CHESS_SIZE }} className="chess"> {this.state.displayBoard[4]} </div>
-                        </td>
-
-                        <td className="gird" style={{ height: UPPER_HEIGHT, width: GIRD_HEIGHT,
-                                borderBottom: BORDER_CSS }}
-                                onClick={this.handleClick.bind(this, 5)} >
-                            <div style={{ fontSize: CHESS_SIZE }} className="chess"> {this.state.displayBoard[5]} </div>
+                        <td className="gird" style={{ height: '22.5vmin', width: '20vmin',
+                            borderBottom: BORDER_CSS }}
+                            onClick={this.handleClick.bind(this, 2)} >
+                            <div style={{ fontSize: '14.7vmin' }} className="chess"> {this.state.displayBoard[2]} </div>
                         </td>
                     </tr>
 
 
-                    <tr className="row" style={{ height: UPPER_HEIGHT }}>
-                        <td className="gird" style={{ height: GIRD_HEIGHT, width: GIRD_HEIGHT }}
-                                onClick={this.handleClick.bind(this, 6)}>
-                            <div style={{ fontSize: CHESS_SIZE }} className="chess"> {this.state.displayBoard[6]} </div>
+                    <tr className="row" style={{ height: '22.5vmin' }}>
+                        <td className="gird" style={{ height: '22.5vmin', width: '20vmin',
+                            borderBottom: BORDER_CSS }}
+                            onClick={this.handleClick.bind(this, 3)}>
+                            <div style={{ fontSize: '14.7vmin' }} className="chess"> {this.state.displayBoard[3]} </div>
                         </td>
 
-                        <td className="gird" style={{ height: GIRD_HEIGHT, width: MIDDLE_HEIGHT,
-                                borderLeft: BORDER_CSS, borderRight: BORDER_CSS }}
-                                onClick={this.handleClick.bind(this, 7)} >
-                            <div style={{ fontSize: CHESS_SIZE }} className="chess"> {this.state.displayBoard[7]} </div>
+                        <td className="gird" style={{ height: '22.5vmin', width: '25vmin',
+                            borderLeft: BORDER_CSS, borderRight: BORDER_CSS, borderBottom: BORDER_CSS }}
+                            onClick={this.handleClick.bind(this, 4)} >
+                            <div style={{ fontSize: '14.7vmin' }} className="chess"> {this.state.displayBoard[4]} </div>
                         </td>
 
-                        <td className="gird" style={{ height: GIRD_HEIGHT, width: GIRD_HEIGHT }}
-                                onClick={this.handleClick.bind(this, 8)} >
-                            <div style={{ fontSize: CHESS_SIZE }} className="chess"> {this.state.displayBoard[8]} </div>
+                        <td className="gird" style={{ height: '22.5vmin', width: '20vmin',
+                            borderBottom: BORDER_CSS }}
+                            onClick={this.handleClick.bind(this, 5)} >
+                            <div style={{ fontSize: '14.7vmin' }} className="chess"> {this.state.displayBoard[5]} </div>
+                        </td>
+                    </tr>
+
+
+                    <tr className="row" style={{ height: '22.5vmin' }}>
+                        <td className="gird" style={{ height: '20vmin', width: '20vmin' }}
+                            onClick={this.handleClick.bind(this, 6)}>
+                            <div style={{ fontSize: '14.7vmin' }} className="chess"> {this.state.displayBoard[6]} </div>
+                        </td>
+
+                        <td className="gird" style={{ height: '20vmin', width: '25vmin',
+                            borderLeft: BORDER_CSS, borderRight: BORDER_CSS }}
+                            onClick={this.handleClick.bind(this, 7)} >
+                            <div style={{ fontSize: '14.7vmin' }} className="chess"> {this.state.displayBoard[7]} </div>
+                        </td>
+
+                        <td className="gird" style={{ height: '20vmin', width: '20vmin' }}
+                            onClick={this.handleClick.bind(this, 8)} >
+                            <div style={{ fontSize: '14.7vmin' }} className="chess"> {this.state.displayBoard[8]} </div>
                         </td>
                     </tr>
 
@@ -245,10 +229,10 @@ class Index extends React.Component {
                         You &nbsp; <Switch defaultChecked onChange={this.handleSwitch} /> &nbsp; AI go first.
                     </div>
                     <br/>
-                    <div className="status" style={{ fontSize: FONT_SIZE }} onClick={this.handleClickMsg}>
+                    <div className="status" style={{ fontSize: '6.7vmin' }} onClick={this.handleClickMsg}>
                         {this.state.result}
                     </div>
-                    </div>
+                </div>
 
 
             </div>
@@ -256,5 +240,13 @@ class Index extends React.Component {
     }
 
 }
+*/
 
-export default Index
+
+export function TicTacToe() {
+    return (
+        <Wrapper>
+
+        </Wrapper>
+    );
+}

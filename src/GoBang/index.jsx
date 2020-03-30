@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Slider, Col, Row } from 'antd';
 import './index.css';
+import '../common/common.css';
 
 let A = require('./negamax');
 let ai_move = A.ai_move;
