@@ -1,13 +1,13 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+/web/node_modules
 
 # testing
-/coverage
+/web/coverage
 
 # production
-/build
+/web/build
 
 # misc
 .DS_Store
@@ -16,9 +16,9 @@
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+/web/npm-debug.log*
+/web/yarn-debug.log*
+/web/yarn-error.log*
 
 # itself
 .gitignore
@@ -31,5 +31,5 @@ yarn-error.log*
 /presenterTool
 
 # other 
-yarn.lock
-package-lock.json
+/web/yarn.lock
+/web/package-lock.json

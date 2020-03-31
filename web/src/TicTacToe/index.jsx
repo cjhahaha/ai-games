@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { Wrapper } from '../components/Wrapper';
 import { ButtonSet } from '../components/ButtonSet';
 import { showResult } from '../components/Result';
-import { AI, PLAYER, EMPTY, PLAYING, TIE, AI_WIN, PLAYER_WIN } from "../common/constant";
+import { AI, PLAYER, EMPTY, PLAYING } from "../common/constant";
 import { Chessboard } from "./chessboard";
 import { winCheck, aiMove } from "./minimax";
 
