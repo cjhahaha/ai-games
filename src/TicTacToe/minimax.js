@@ -1,15 +1,15 @@
-const AI = 1;
-const PLAYER = -1;
-const TIE = 0;
+import { AI, PLAYER, TIE } from "../common/constant";
 
-
-/* for game status check */
-const is_same = (a, b, c) => {                                                   // check if 3 chess are the same
+/**
+ * check if three elements are the same
+ * @return {boolean}
+ */
+const is_same = (a, b, c) => {
     return a === b && b === c && a === c && a !== 0;
 };
 
 
-const is_full = (chessboard) => {                                                // check if chessboard is full
+const is_full = (chessboard) => {
     for (let i = 0; i < 3; i ++)
         for (let j = 0; j < 3; j ++)
             if (chessboard[i][j] === 0)
@@ -18,13 +18,13 @@ const is_full = (chessboard) => {                                               
 };
 
 
-const is_just_started = (chessboard) => {                                        // if this game is just started
+const is_just_started = (chessboard) => {
     let AI_cnt = 0, player_cnt = 0;
     for (let i = 0; i < 3; i ++)
         for (let j = 0; j < 3; j ++) {
             if (chessboard[i][j] === AI)
                 AI_cnt ++;
-            else if (chessboard[i][j] == PLAYER)
+            else if (chessboard[i][j] === PLAYER)
                 player_cnt ++;
         }
 
@@ -32,19 +32,23 @@ const is_just_started = (chessboard) => {                                       
 }
 
 
-const win_check = (chessboard) => {                                              // check if someone wins
+export const winCheck = (chessboard) => {
     for (let i = 0; i < 3; i ++) {
-        if (is_same(chessboard[i][0], chessboard[i][1], chessboard[i][2]))       // row
+        // row
+        if (is_same(chessboard[i][0], chessboard[i][1], chessboard[i][2]))
             return chessboard[i][0];
-        if (is_same(chessboard[0][i], chessboard[1][i], chessboard[2][i]))       // col
+        // col
+        if (is_same(chessboard[0][i], chessboard[1][i], chessboard[2][i]))
             return chessboard[0][i];
     }
 
-    if (is_same(chessboard[0][0], chessboard[1][1], chessboard[2][2]) ||         // diagonal
+    // diagonal
+    if (is_same(chessboard[0][0], chessboard[1][1], chessboard[2][2]) ||
         is_same(chessboard[2][0], chessboard[1][1], chessboard[0][2]))
         return chessboard[1][1];
 
-    return 0;                                                                    // nobody wins
+    // nobody wins
+    return is_full(chessboard) ? 2 : 0;
 };
 
 
@@ -53,7 +57,7 @@ const is_about_to_win = (chessboard, who) => {                                  
         for (let j = 0; j < 3; j ++)
             if (chessboard[i][j] === 0) {                                        // available place
                 chessboard[i][j] = who;
-                let winner = win_check(chessboard);
+                let winner = winCheck(chessboard);
                 chessboard[i][j] = 0;                                            // roll back
 
                 if (winner === who)
@@ -64,7 +68,7 @@ const is_about_to_win = (chessboard, who) => {                                  
 };
 
 
-const ai_move = (chessboard, alpha, beta) => {                                   // predict AI move
+export const aiMove = (chessboard, alpha, beta) => {                                   // predict AI move
     let ret = { score: alpha, best_move: [] }, temp_score;
 
     let win_state = is_about_to_win(chessboard, AI);
@@ -77,7 +81,7 @@ const ai_move = (chessboard, alpha, beta) => {                                  
             for (let j = 0; j < 3; j ++)
                 if (chessboard[i][j] === 0) {                                    // available place
                     chessboard[i][j] = AI;                                       // place here
-                    temp_score = player_move(chessboard, ret.score, beta).score; // predict player move
+                    temp_score = playerMove(chessboard, ret.score, beta).score; // predict player move
                     chessboard[i][j] = 0;                                        // rollback
 
                     if (temp_score > ret.score) {                                // update score and best move
@@ -91,7 +95,7 @@ const ai_move = (chessboard, alpha, beta) => {                                  
 };
 
 
-const player_move = (chessboard, alpha, beta) => {                               // predict human move
+const playerMove = (chessboard, alpha, beta) => {                               // predict human move
     let ret = { score: beta, best_move: [] }, temp_score;
 
     let win_state = is_about_to_win(chessboard, PLAYER);
@@ -104,7 +108,7 @@ const player_move = (chessboard, alpha, beta) => {                              
             for (let j = 0; j < 3; j ++)
                 if (chessboard[i][j] === 0) {                                    // available place
                     chessboard[i][j] = PLAYER;                                   // place here
-                    temp_score = ai_move(chessboard, alpha, ret.score).score;    // predict AI move
+                    temp_score = aiMove(chessboard, alpha, ret.score).score;    // predict AI move
                     chessboard[i][j] = 0;                                        // rollback
 
                     if (temp_score < ret.score) {                                // update score and best move
@@ -117,8 +121,3 @@ const player_move = (chessboard, alpha, beta) => {                              
     return ret;
 };
 
-
-module.exports.is_full = is_full;
-module.exports.is_just_started = is_just_started;
-module.exports.win_check= win_check;
-module.exports.ai_move = ai_move;

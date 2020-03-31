@@ -1,41 +1,17 @@
-.container {
-    color: #FFF;
-    text-align: center;
-    border-width: 0;
-    padding: 0;
-    margin: 0;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.chessboard {
-	display:inline-block;
-	vertical-align:middle;
-}
-
-.gird {
-    display: inline-block;
-    overflow: hidden;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-}
-
-.row {
+.tic-tac-toe tr {
     display: block;
     border: 0;
     margin: 0;
 }
 
-.chess, .status {
+.tic-tac-toe td {
+    display: inline-block;
+    overflow: hidden;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     text-align: center;
+    height: 100%;
+    width:22.5vmin;
+    font-size: 14.7vmin;
 }
 
-.status {
-    display: block;
-    width: 100%;
-    left: 0;
-    margin-top: 5px;
-    position: absolute;
-}

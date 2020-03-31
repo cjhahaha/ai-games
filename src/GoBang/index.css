@@ -1,18 +1,3 @@
-.container {
-    color: #FFF;
-    text-align: center;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    margin: 0;
-}
-
-.chessboard {
-    display:inline-block;
-    vertical-align:middle;
-}
 
 .status, .info {
     position: absolute;
