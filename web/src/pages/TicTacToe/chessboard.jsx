@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { EMPTY, PLAYER } from "../common/constant";
+import { EMPTY, PLAYER } from "../../common/constant";
 
 function display(ch) {
     return ch !== EMPTY

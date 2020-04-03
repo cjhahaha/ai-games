@@ -24,6 +24,7 @@
 .gitignore
 
 # WebStorm
+/web/.idea
 /.idea
 *.swp
 
@@ -33,3 +34,7 @@
 # other 
 /web/yarn.lock
 /web/package-lock.json
+
+# compiled file
+/algorithm/*.wasm
+/algorithm/*.js

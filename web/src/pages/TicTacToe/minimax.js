@@ -1,4 +1,4 @@
-import { AI, PLAYER, TIE } from "../common/constant";
+import { AI, PLAYER, TIE } from "../../common/constant";
 
 /**
  * check if three elements are the same

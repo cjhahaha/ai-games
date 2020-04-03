@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, HashRouter as Router, Route } from 'react-router-dom';
 /* pages */
-import Home from './Home';
-import { TicTacToe } from './TicTacToe/index'
-import GoBang from './GoBang/index'
+import Home from './pages/Home';
+import { TicTacToe } from './pages/TicTacToe/index'
+import GoBang from './pages/GoBang/index'
 /* styles */
 import './App.css'
 

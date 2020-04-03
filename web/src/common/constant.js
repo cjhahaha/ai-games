@@ -7,6 +7,6 @@ export const EMPTY = 0;
 /** for game status */
 export const AI_WIN = AI;
 export const PLAYER_WIN = PLAYER;
-export const PLAYING = 0;
-export const TIE = 2;
+export const PLAYING = 2;
+export const TIE = 0;
 

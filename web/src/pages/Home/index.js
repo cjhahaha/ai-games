@@ -21,7 +21,10 @@ function HomeButton(props) {
 export default function Home() {
     return (
         <div className='home'>
-            <img style={{ height: '20vmin', width: 'auto' }} src={require('../assets/images/gameboy.svg')} />
+            <img
+                style={{ height: '20vmin', width: 'auto' }}
+                src={require('../../assets/images/gameboy.svg')}
+            />
 
             <div className="menu">
                 <HomeButton to='/tic-tac-toe'>
