@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, HashRouter as Router, Route } from 'react-router-dom';
 /* pages */
-import Home from './pages/Home';
+import { Home } from './pages/Home';
 import { TicTacToe } from './pages/TicTacToe/index'
-import GoBang from './pages/GoBang/index'
+import { Gomoku } from "./pages/Gomoku";
 /* styles */
 import './App.css'
 
@@ -13,7 +13,7 @@ export default function App() {
             <Router>
                 <Switch>
                     <Route exact path="/" component={Home} />
-                    <Route path="/go-bang" component={GoBang} />
+                    <Route path="/go-bang" component={Gomoku} />
                     <Route path="/tic-tac-toe" component={TicTacToe} />
                 </Switch>
             </Router>

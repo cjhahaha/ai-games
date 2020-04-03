@@ -12,7 +12,7 @@ export function useAI() {
         , []);
     */
     const { loading, data } = useWasm({
-        url: '/TicTacToe.wasm',
+        url: require('../../assets/wasm/TicTacToe.wasm'),
         config: {
             env: {
                 /*
